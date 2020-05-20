@@ -1,6 +1,7 @@
 package dev.fanger.awtsomeswing.tools;
 
 import dev.fanger.awtsomeswing.SceneManager;
+import dev.fanger.awtsomeswing.scene.SceneProperties;
 
 public class SceneSwitcher {
 
@@ -10,8 +11,8 @@ public class SceneSwitcher {
 		this.sceneManager = sceneManager;
 	}
 
-	public void changeScene(Enum sceneType) {
-		sceneManager.setCurrentScene(sceneType);
+	public void changeScene(Enum sceneType, SceneProperties sceneProperties) {
+		sceneManager.setCurrentScene(sceneType, sceneProperties);
 	}
 
 }

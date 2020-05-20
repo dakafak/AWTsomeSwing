@@ -1,6 +1,7 @@
 package dev.fanger.awtsomeswing;
 
 import dev.fanger.awtsomeswing.scene.Scene;
+import dev.fanger.awtsomeswing.scene.SceneProperties;
 import dev.fanger.awtsomeswing.tools.SceneSwitcher;
 
 import javax.swing.JComponent;
@@ -52,9 +53,9 @@ public class SceneManager extends JComponent {
         setupKeyListeners(this);
     }
 
-    public void setDefaultSceneType(Enum defaultSceneType) {
+    public void setDefaultSceneType(Enum defaultSceneType, SceneProperties sceneProperties) {
         this.defaultSceneType = defaultSceneType;
-        sceneSwitcher.changeScene(defaultSceneType);
+        sceneSwitcher.changeScene(defaultSceneType, sceneProperties);
     }
 
     public void addScene(Enum sceneType, Scene scene) {
@@ -63,10 +64,14 @@ public class SceneManager extends JComponent {
     }
 
     public void prepare() {
+        prepare(null);
+    }
+
+    public void prepare(SceneProperties sceneProperties) {
         if(defaultSceneType == null && currentScene == null) {
             for(Enum sceneType : scenes.keySet()) {
                 if(sceneType != null) {
-                    setDefaultSceneType(sceneType);
+                    setDefaultSceneType(sceneType, sceneProperties);
                     break;
                 }
             }
@@ -213,13 +218,13 @@ public class SceneManager extends JComponent {
         }
     }
 
-    public void setCurrentScene(Enum newSceneType) {
+    public void setCurrentScene(Enum newSceneType, SceneProperties sceneProperties) {
         if(newSceneType != null && scenes.get(newSceneType) != null) {
             if (currentScene != null && scenes.get(currentScene) != null) {
                 scenes.get(currentScene).onClose();
             }
 
-            scenes.get(newSceneType).onStart();
+            scenes.get(newSceneType).onStart(sceneProperties);
             this.currentScene = newSceneType;
         }
     }

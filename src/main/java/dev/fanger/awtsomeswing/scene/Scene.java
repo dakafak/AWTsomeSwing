@@ -15,10 +15,14 @@ public abstract class Scene {
 	}
 
 	public void changeScene(Enum sceneType) {
-		sceneSwitcher.changeScene(sceneType);
+		sceneSwitcher.changeScene(sceneType, null);
 	}
 
-	public abstract void onStart();
+	public void changeScene(Enum sceneType, SceneProperties sceneProperties) {
+		sceneSwitcher.changeScene(sceneType, sceneProperties);
+	}
+
+	public abstract void onStart(SceneProperties sceneProperties);
 
 	public abstract void onClose();
 
