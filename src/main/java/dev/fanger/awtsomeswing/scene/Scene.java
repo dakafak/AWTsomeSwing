@@ -5,6 +5,7 @@ import dev.fanger.awtsomeswing.tools.SceneSwitcher;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public abstract class Scene {
 
@@ -39,5 +40,7 @@ public abstract class Scene {
 	public abstract void mouseRelease(MouseEvent e);
 
 	public abstract void mouseMove(MouseEvent e);
+
+	public abstract void moveMouseWheel(MouseWheelEvent e);
 
 }

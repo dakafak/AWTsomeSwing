@@ -14,6 +14,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,21 +65,6 @@ public class SceneManager extends JComponent {
         scenes.put(sceneType, scene);
     }
 
-    public void prepare() {
-        prepare(null);
-    }
-
-    public void prepare(SceneProperties sceneProperties) {
-        if(defaultSceneType == null && currentScene == null) {
-            for(Enum sceneType : scenes.keySet()) {
-                if(sceneType != null) {
-                    setDefaultSceneType(sceneType, sceneProperties);
-                    break;
-                }
-            }
-        }
-    }
-
     private void setupKeyListeners(SceneManager sceneManager) {
         sceneManager.addKeyListener(new KeyListener() {
             @Override
@@ -124,6 +111,13 @@ public class SceneManager extends JComponent {
             @Override
             public void mouseMoved(MouseEvent e) {
                 sceneManager.mouseMove(e);
+            }
+        });
+
+        sceneManager.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                sceneManager.moveMouseWheel(e);
             }
         });
     }
@@ -193,6 +187,12 @@ public class SceneManager extends JComponent {
     public void mouseMove(MouseEvent e) {
         if(scenes != null && scenes.get(currentScene) != null) {
             scenes.get(currentScene).mouseMove(e);
+        }
+    }
+
+    public void moveMouseWheel(MouseWheelEvent e) {
+        if(scenes != null && scenes.get(currentScene) != null) {
+            scenes.get(currentScene).moveMouseWheel(e);
         }
     }
 
