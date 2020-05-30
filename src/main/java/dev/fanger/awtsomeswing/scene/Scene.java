@@ -11,6 +11,10 @@ public abstract class Scene {
 
 	private SceneSwitcher sceneSwitcher;
 
+	public SceneSwitcher getSceneSwitcher() {
+		return sceneSwitcher;
+	}
+
 	public void setSceneSwitcher(SceneSwitcher sceneSwitcher) {
 		this.sceneSwitcher = sceneSwitcher;
 	}

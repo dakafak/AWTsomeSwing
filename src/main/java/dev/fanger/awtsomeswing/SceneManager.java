@@ -43,6 +43,7 @@ public class SceneManager extends JComponent {
     long timeSinceLastFPSupdate;
 
     public SceneManager() {
+        super.setDoubleBuffered(true);
         super.setCursor(Cursor.getPredefinedCursor(HAND_CURSOR));
 
         sceneSwitcher = new SceneSwitcher(this);
@@ -66,6 +67,8 @@ public class SceneManager extends JComponent {
     }
 
     private void setupKeyListeners(SceneManager sceneManager) {
+        setFocusTraversalKeysEnabled(false);
+
         sceneManager.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) { }
