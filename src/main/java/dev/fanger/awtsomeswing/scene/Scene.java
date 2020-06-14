@@ -9,42 +9,51 @@ import java.awt.event.MouseWheelEvent;
 
 public abstract class Scene {
 
-	private SceneSwitcher sceneSwitcher;
+    long updateCap = 1_000_000_000 / 300;
+    private SceneSwitcher sceneSwitcher;
 
-	public SceneSwitcher getSceneSwitcher() {
-		return sceneSwitcher;
-	}
+    public SceneSwitcher getSceneSwitcher() {
+        return sceneSwitcher;
+    }
 
-	public void setSceneSwitcher(SceneSwitcher sceneSwitcher) {
-		this.sceneSwitcher = sceneSwitcher;
-	}
+    public long getUpdateCap() {
+        return updateCap;
+    }
 
-	public void changeScene(Enum sceneType) {
-		sceneSwitcher.changeScene(sceneType, null);
-	}
+    public void setFPSCap(int cap) {
+        updateCap = 1_000_000_000 / cap;
+    }
 
-	public void changeScene(Enum sceneType, SceneProperties sceneProperties) {
-		sceneSwitcher.changeScene(sceneType, sceneProperties);
-	}
+    public void setSceneSwitcher(SceneSwitcher sceneSwitcher) {
+        this.sceneSwitcher = sceneSwitcher;
+    }
 
-	public abstract void onStart(SceneProperties sceneProperties);
+    public void changeScene(Enum sceneType) {
+        sceneSwitcher.changeScene(sceneType, null);
+    }
 
-	public abstract void onClose();
+    public void changeScene(Enum sceneType, SceneProperties sceneProperties) {
+        sceneSwitcher.changeScene(sceneType, sceneProperties);
+    }
 
-	public abstract void updateScene(double deltaUpdate);
+    public abstract void onStart(SceneProperties sceneProperties);
 
-	public abstract void draw(Graphics2D g, int screenWidth, int screenHeight);//TODO replace width and height with a cached size object, which holds cached values for aiding in calculating sizes
+    public abstract void onClose();
 
-	public abstract void keyPress(KeyEvent e);
+    public abstract void updateScene(double deltaUpdate);
 
-	public abstract void keyReleased(KeyEvent e);
+    public abstract void draw(Graphics2D g, int screenWidth, int screenHeight);//TODO replace width and height with a cached size object, which holds cached values for aiding in calculating sizes
 
-	public abstract void mousePress(MouseEvent e);
+    public abstract void keyPress(KeyEvent e);
 
-	public abstract void mouseRelease(MouseEvent e);
+    public abstract void keyReleased(KeyEvent e);
 
-	public abstract void mouseMove(MouseEvent e);
+    public abstract void mousePress(MouseEvent e);
 
-	public abstract void moveMouseWheel(MouseWheelEvent e);
+    public abstract void mouseRelease(MouseEvent e);
+
+    public abstract void mouseMove(MouseEvent e);
+
+    public abstract void moveMouseWheel(MouseWheelEvent e);
 
 }

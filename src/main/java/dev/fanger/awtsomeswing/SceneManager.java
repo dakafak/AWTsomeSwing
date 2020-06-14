@@ -32,10 +32,9 @@ public class SceneManager extends JComponent {
     long lastUpdateTime;
     long updateTimeDifference;
 
-    long updateCap;
+    long defaultFPSCap = 1_000_000_000 / 300;
     long baseDeltaTime;
-    final short fpsCap = 300;
-    final short fpsLimit = 30;
+    final short fpsLowerLimit = 15;
     double deltaUpdate = 1;
 
     long lastFPS;
@@ -49,8 +48,7 @@ public class SceneManager extends JComponent {
         sceneSwitcher = new SceneSwitcher(this);
         scenes = new HashMap<>();
 
-        baseDeltaTime = 1_000_000_000 / fpsLimit;
-        updateCap = 1_000_000_000 / fpsCap;
+        baseDeltaTime = 1_000_000_000 / fpsLowerLimit;
 
         setFocusable(true);
         setupKeyListeners(this);
@@ -131,7 +129,8 @@ public class SceneManager extends JComponent {
         while (true) {
             updateTimeDifference = System.nanoTime() - lastUpdateTime;
 
-            if (updateTimeDifference >= updateCap) {
+            Scene currentSceneToUpdate = scenes.get(currentScene);
+            if (updateTimeDifference >= (currentSceneToUpdate != null ? currentSceneToUpdate.getUpdateCap() : defaultFPSCap)) {
                 lastUpdateTime = System.nanoTime();
 
                 currentFrames++;
