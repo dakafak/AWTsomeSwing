@@ -2,6 +2,7 @@ package dev.fanger.awtsomeswing.scene;
 
 import dev.fanger.awtsomeswing.tools.SceneSwitcher;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -42,7 +43,18 @@ public abstract class Scene {
 
     public abstract void updateScene(double deltaUpdate);
 
-    public abstract void draw(Graphics2D g, int screenWidth, int screenHeight);//TODO replace width and height with a cached size object, which holds cached values for aiding in calculating sizes
+    public abstract void draw(Graphics2D g, int screenWidth, int screenHeight);
+
+    public void drawDebugDetails(Graphics2D g, long lastFPS, int width, int height, String name, double deltaUpdate) {
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, 200, 100);
+
+        g.setColor(Color.WHITE);
+        g.drawString("fps: " + lastFPS, 5, 15);
+        g.drawString("screen size: (" + width + ", " + height + ")", 5, 30);
+        g.drawString("current scene: " + name, 5, 45);
+        g.drawString("delta update: " + deltaUpdate, 5, 60);
+    }
 
     public abstract void keyPress(KeyEvent e);
 

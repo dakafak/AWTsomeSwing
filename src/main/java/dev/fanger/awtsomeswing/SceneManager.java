@@ -205,14 +205,7 @@ public class SceneManager extends JComponent {
             scenes.get(currentScene).draw(g2d, getWidth(), getHeight());
 
             if (displayDebugDetails) {
-                g2d.setColor(Color.BLACK);
-                g2d.fillRect(0, 0, 200, 100);
-
-                g2d.setColor(Color.WHITE);
-                g2d.drawString("fps: " + lastFPS, 5, 15);
-                g2d.drawString("screen size: (" + getWidth() + ", " + getHeight() + ")", 5, 30);
-                g2d.drawString("current scene: " + currentScene.name(), 5, 45);
-                g2d.drawString("delta update: " + deltaUpdate, 5, 60);
+                scenes.get(currentScene).drawDebugDetails(g2d, lastFPS, getWidth(), getHeight(), currentScene.name(), deltaUpdate);
             }
         } else {
             g.setColor(Color.BLUE);
