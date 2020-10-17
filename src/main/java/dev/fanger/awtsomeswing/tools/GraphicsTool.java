@@ -14,20 +14,14 @@ import java.io.IOException;
 
 public class GraphicsTool {
 
-    public static Image loadImage(String imageUrl){
-        try {
-            return ImageIO.read(new File(imageUrl));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    public static Image loadImage(String imageUrl) throws IOException {
+        return ImageIO.read(new File(imageUrl));
     }
 
-    public static BufferedImage getBufferedImageFromFile(String filePath){
+    public static BufferedImage getBufferedImageFromFile(String filePath, int imageType) throws IOException {
         Image imageFile = loadImage(filePath);
 
-        BufferedImage bufferedImage = new BufferedImage(imageFile.getWidth(null), imageFile.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bufferedImage = new BufferedImage(imageFile.getWidth(null), imageFile.getHeight(null), imageType);
         Graphics2D imageGraphics = bufferedImage.createGraphics();
         imageGraphics.drawImage(imageFile, 0, 0, imageFile.getWidth(null), imageFile.getHeight(null), null);
 
@@ -45,7 +39,7 @@ public class GraphicsTool {
     public static BufferedImage rotateImage(BufferedImage image, double degrees) {
         double radianAngle = Math.toRadians(degrees);
 
-        BufferedImage rotatedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage rotatedImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
         Graphics2D imageGraphics = rotatedImage.createGraphics();
         AffineTransform tx = AffineTransform.getRotateInstance(-radianAngle, image.getWidth() / 2, image.getHeight() / 2);
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
